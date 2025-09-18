@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Step Form</title>
+  <link rel="stylesheet" href="/css/styles.css"> <!-- optional external CSS -->
+  <style>
+    /* Navbar styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #5c6ac4;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .header .profile-logo a {
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1.2em;
+    }
+    .header .nav-links a {
+    margin-left: 20px;
+    color: #fff;
+    text-decoration: none; /* No underline by default */
+    font-weight: 500;
+}
+
+.header .nav-links a.active {
+    color: #fff;          /* White text */
+    border-bottom: none;  /* Remove underline */
+}
+
+.header .nav-links a:hover {
+    color: #ddd;          /* Optional hover color */
+    text-decoration: none;
+}
+
+
+    /* Existing container and form styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h2 { margin-bottom: 10px; font-size: 1.6em; }
+    p { margin-bottom: 20px; color: #555; }
+    input[type="text"], input[type="email"], input[type="number"] {
+      width: 48%;
+      padding: 12px;
+      margin: 5px 1%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+    .form-section { display: none; }
+    .form-section.active { display: block; }
+    .option-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    label { display: flex; align-items: center; cursor: pointer; }
+    input[type="checkbox"] { margin-right: 10px; }
+    .buttons { margin-top: 20px; display: flex; justify-content: space-between; }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #5c6ac4;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    button:hover { background-color: #4954a6; }
+    .progress-bar { height: 8px; background-color: #e0e0e0; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+    .progress { height: 100%; width: 0; background-color: #5c6ac4; transition: width 0.3s ease-in-out; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar from tracker page -->
+  <header class="header">
+      <div class="profile-logo"><a href="/home">Disha</a></div>
+      <nav class="nav-links">
+          <a href="/path">Your Path</a>
+          <a href="#">College Directory</a>
+          <a href="/tracker" class="active">Tracker</a>
+          <a href="#">AI Bot</a>
+      </nav>
+  </header>
+
+  <!-- Multi-Step Form Container -->
+  <div class="container">
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="form-section active" id="step-1">
+      <h2>Basic Information</h2>
+      <p>Let's start with some basic details about you</p>
+      <input type="text" placeholder="Full Name" id="fullName" required>
+      <input type="email" placeholder="Email" id="email" required>
+      <br>
+      <input type="number" placeholder="Age" id="age" required>
+      <input type="text" placeholder="Current Education Level" id="education" required>
+      <div class="buttons">
+        <button type="button" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="form-section" id="step-2">
+      <h2>Your Skills</h2>
+      <p>Select your strongest skills (select multiple)</p>
+      <div class="option-grid">
+        <label><input type="checkbox" name="skills" value="Problem Solving"> Problem Solving</label>
+        <label><input type="checkbox" name="skills" value="Leadership"> Leadership</label>
+        <label><input type="checkbox" name="skills" value="Creativity"> Creativity</label>
+        <label><input type="checkbox" name="skills" value="Communication"> Communication</label>
+        <label><input type="checkbox" name="skills" value="Project Management"> Project Management</label>
+        <label><input type="checkbox" name="skills" value="Analytical Thinking"> Analytical Thinking</label>
+        <label><input type="checkbox" name="skills" value="Technical Skills"> Technical Skills</label>
+        <label><input type="checkbox" name="skills" value="Teamwork"> Teamwork</label>
+        <label><input type="checkbox" name="skills" value="Public Speaking"> Public Speaking</label>
+        <label><input type="checkbox" name="skills" value="Writing"> Writing</label>
+      </div>
+      <div class="buttons">
+        <button type="button" onclick="prevStep()">Previous</button>
+        <button type="button" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="form-section" id="step-3">
+      <h2>Your Interests</h2>
+      <p>Select all areas that interest you (select multiple)</p>
+      <div class="option-grid">
+        <label><input type="checkbox" name="interests" value="Technology & Programming"> Technology & Programming</label>
+        <label><input type="checkbox" name="interests" value="Arts & Design"> Arts & Design</label>
+        <label><input type="checkbox" name="interests" value="Education & Teaching"> Education & Teaching</label>
+        <label><input type="checkbox" name="interests" value="Law & Legal Services"> Law & Legal Services</label>
+        <label><input type="checkbox" name="interests" value="Science & Research"> Science & Research</label>
+        <label><input type="checkbox" name="interests" value="Healthcare & Medicine"> Healthcare & Medicine</label>
+        <label><input type="checkbox" name="interests" value="Business & Finance"> Business & Finance</label>
+        <label><input type="checkbox" name="interests" value="Engineering"> Engineering</label>
+        <label><input type="checkbox" name="interests" value="Marketing & Communications"> Marketing & Communications</label>
+        <label><input type="checkbox" name="interests" value="Sports & Fitness"> Sports & Fitness</label>
+      </div>
+      <div class="buttons">
+        <button type="button" onclick="prevStep()">Previous</button>
+        <button type="button" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="form-section" id="step-4">
+      <h2>Summary</h2>
+      <p>Review your selections and submit.</p>
+      <button type="button" onclick="prevStep()">Previous</button>
+      <button type="button" onclick="submitForm()">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 4;
+
+    function showStep(step) {
+      document.querySelectorAll('.form-section').forEach((section, index) => {
+        section.classList.remove('active');
+        if (index === step - 1) section.classList.add('active');
+      });
+      document.getElementById('progress').style.width = `${((step - 1) / (totalSteps - 1)) * 100}%`;
+    }
+
+    function nextStep() {
+      if (currentStep < totalSteps) { currentStep++; showStep(currentStep); }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) { currentStep--; showStep(currentStep); }
+    }
+
+    function submitForm() {
+      alert("Form submitted successfully!");
+      // Add backend submission logic here
+    }
+  </script>
+
+</body>
+</html>
