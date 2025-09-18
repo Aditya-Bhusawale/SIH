@@ -13,8 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static('public'));
-
+app.use(express.static("public"));
 
 // Sessions
 app.use(
@@ -40,32 +39,46 @@ function isAuth(req, res, next) {
   }
 }
 
-// Routes
+// ---------------- ROUTES ---------------- //
+
+// Public home (landing) page
 app.get("/", (req, res) => {
-  res.redirect("/login");
+  res.render("home.ejs"); // create views/landing.ejs
 });
 
-app.get("/path", (req, res) => {
+app.get("/home", (req, res) => {
+    res.render("home", { user: req.session.user });
+});
+
+
+// Protected routes
+app.get("/path", isAuth, (req, res) => {
   res.render("path.ejs");
 });
 
 
-app.get("/tracker", (req, res) => {
+
+app.get("/tracker", isAuth, (req, res) => {
   res.render("tracker.ejs");
 });
 
-app.get("/quizz", (req, res) => {
+app.get("/quizz", isAuth, (req, res) => {
   res.render("quizz.ejs");
 });
 
-app.get("/ai", (req, res) => {
+app.get("/ai", isAuth, (req, res) => {
   res.render("ai.ejs");
 });
 
-app.get("/college", (req, res) => {
+app.get("/college", isAuth, (req, res) => {
   res.render("college.ejs");
 });
 
+app.get("/recommended", isAuth, (req, res) => {
+  res.render("recommended.ejs");
+});
+
+// Auth routes
 app.get("/login", (req, res) => {
   res.render("users/login");
 });

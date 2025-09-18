@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Path</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f7fb;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ===== Navbar Styles ===== */
+    .main-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 40px;
+        background-color: white; /* White navbar */
+        color: #333;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .main-header .logo {
+        font-size: 26px;
+        font-weight: 700;
+        color: #4a90e2;
+        text-decoration: none;
+    }
+    .main-nav ul {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+        margin: 0;
+        padding: 0;
+    }
+    .main-nav ul li a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+    .main-nav ul li a:hover {
+        color: #4a90e2; /* Blue hover */
+    }
+
+    /* ===== Header (page title) ===== */
+    header {
+      background: linear-gradient(135deg, #4a90e2, #357abd);
+      color: white;
+      text-align: center;
+      padding: 50px 20px 40px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+    header p {
+      margin-top: 8px;
+      font-size: 1.1em;
+      color: #f0f0f0;
+    }
+
+    /* ===== Career Cards Grid ===== */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 30px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0px 10px 18px rgba(0,0,0,0.2);
+    }
+    .percentage {
+      font-size: 22px;
+      font-weight: bold;
+      color: #4a90e2;
+    }
+    .progress-bar {
+      background: #e0e0e0;
+      border-radius: 20px;
+      margin: 10px 0;
+      height: 14px;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      border-radius: 20px;
+      text-align: right;
+    }
+    .career-title {
+      font-size: 20px;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+    .desc {
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Progress Colors */
+    .blue { background: #4a90e2; }
+    .green { background: #4caf50; }
+    .orange { background: #ff9800; }
+    .purple { background: #9c27b0; }
+    .red { background: #f44336; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="main-header">
+    <a class="logo" href="/home">Disha</a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/path">Your Path</a></li>
+        <li><a href="/college">College Directory</a></li>
+        <li><a href="/tracker">Tracker</a></li>
+        <li><a href="/ai">AI Bot</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Page Title -->
+  <header>
+    <h1>Recommended Career Paths</h1>
+    <p>Based on Your Skills & Interests</p>
+  </header>
+
+  <!-- Career Cards -->
+  <div class="container">
+
+    <div class="card">
+      <div class="career-title">Software Engineer</div>
+      <div class="percentage">92%</div>
+      <div class="progress-bar"><div class="progress blue" style="width:92%"></div></div>
+      <p class="desc">Strong match with your technical, problem-solving, and programming skills.</p>
+    </div>
+
+    <div class="card">
+      <div class="career-title">AI / ML Engineer</div>
+      <div class="percentage">87%</div>
+      <div class="progress-bar"><div class="progress green" style="width:87%"></div></div>
+      <p class="desc">Perfect for creativity, research interest, and leadership in innovative projects.</p>
+    </div>
+
+    <div class="card">
+      <div class="career-title">Data Scientist</div>
+      <div class="percentage">83%</div>
+      <div class="progress-bar"><div class="progress orange" style="width:83%"></div></div>
+      <p class="desc">Ideal for analytical thinking, science & research, and technical expertise.</p>
+    </div>
+
+    <div class="card">
+      <div class="career-title">Research Scientist</div>
+      <div class="percentage">77%</div>
+      <div class="progress-bar"><div class="progress purple" style="width:77%"></div></div>
+      <p class="desc">Fits your curiosity, science interest, and creativity in problem-solving.</p>
+    </div>
+
+    <div class="card">
+      <div class="career-title">Engineering Manager</div>
+      <div class="percentage">70%</div>
+      <div class="progress-bar"><div class="progress red" style="width:70%"></div></div>
+      <p class="desc">Best for leadership, teamwork, and applying engineering knowledge in projects.</p>
+    </div>
+
+  </div>
+
+</body>
+</html>

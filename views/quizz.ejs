@@ -25,22 +25,19 @@
       font-size: 1.2em;
     }
     .header .nav-links a {
-    margin-left: 20px;
-    color: #fff;
-    text-decoration: none; /* No underline by default */
-    font-weight: 500;
-}
-
-.header .nav-links a.active {
-    color: #fff;          /* White text */
-    border-bottom: none;  /* Remove underline */
-}
-
-.header .nav-links a:hover {
-    color: #ddd;          /* Optional hover color */
-    text-decoration: none;
-}
-
+      margin-left: 20px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .header .nav-links a.active {
+      color: #fff;
+      border-bottom: none;
+    }
+    .header .nav-links a:hover {
+      color: #ddd;
+      text-decoration: none;
+    }
 
     /* Existing container and form styles */
     body {
@@ -89,7 +86,7 @@
 </head>
 <body>
 
-  <!-- Navbar from tracker page -->
+  <!-- Navbar -->
   <header class="header">
       <div class="profile-logo"><a href="/home">Disha</a></div>
       <nav class="nav-links">
@@ -169,7 +166,10 @@
       <h2>Summary</h2>
       <p>Review your selections and submit.</p>
       <button type="button" onclick="prevStep()">Previous</button>
-      <button type="button" onclick="submitForm()">Submit</button>
+      <form action="/recommended" method="get">
+        <button type="submit" style="margin-top: 20px;">Submit</button>
+      </form>
+      
     </div>
   </div>
 
@@ -185,17 +185,58 @@
       document.getElementById('progress').style.width = `${((step - 1) / (totalSteps - 1)) * 100}%`;
     }
 
+    function validateStep(step) {
+      if (step === 1) {
+        // Check basic info fields
+        const fullName = document.getElementById("fullName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const age = document.getElementById("age").value.trim();
+        const education = document.getElementById("education").value.trim();
+        if (!fullName || !email || !age || !education) {
+          alert("Please fill all the fields in Basic Information.");
+          return false;
+        }
+      }
+      if (step === 2) {
+        // Check at least one skill selected
+        const skills = document.querySelectorAll('input[name="skills"]:checked');
+        if (skills.length === 0) {
+          alert("Please select at least one skill.");
+          return false;
+        }
+      }
+      if (step === 3) {
+        // Check at least one interest selected
+        const interests = document.querySelectorAll('input[name="interests"]:checked');
+        if (interests.length === 0) {
+          alert("Please select at least one interest.");
+          return false;
+        }
+      }
+      return true;
+    }
+
     function nextStep() {
-      if (currentStep < totalSteps) { currentStep++; showStep(currentStep); }
+      if (validateStep(currentStep)) {
+        if (currentStep < totalSteps) {
+          currentStep++;
+          showStep(currentStep);
+        }
+      }
     }
 
     function prevStep() {
-      if (currentStep > 1) { currentStep--; showStep(currentStep); }
+      if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+      }
     }
 
     function submitForm() {
-      alert("Form submitted successfully!");
-      // Add backend submission logic here
+      if (validateStep(3)) { // validate last input before submit
+        alert("Form submitted successfully!");
+        // Add backend submission logic here
+      }
     }
   </script>
 

@@ -1,31 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Disha</title>
-    <link rel="stylesheet" href="/css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - Disha</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f4f8;
+        text-align: center;
+    }
+
+    /* Header */
+    .main-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 40px;
+        background-color: #4a69bd;
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .main-header .logo {
+        font-size: 28px;
+        font-weight: 700;
+        color: white;
+        text-decoration: none;
+    }
+    .main-nav ul {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+        margin: 0;
+        padding: 0;
+    }
+    .main-nav ul li a {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+    .main-nav ul li a:hover { color: #ffe600; }
+
+    /* Typing Animation Container */
+    .typing-container {
+        margin: 70px auto;
+        max-width: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .typing-line {
+        font-size: 36px;
+        font-weight: 700;
+        color: #222;
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    /* Dashboard Cards */
+    .dashboard-grid {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-bottom: 60px;
+        margin-top: 50px;
+    }
+
+    .card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 35px 25px;
+        width: 320px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+        margin-top: 0;
+        color: #4a69bd;
+        font-size: 24px;
+    }
+    .card p {
+        color: #555;
+        margin: 15px 0;
+        line-height: 1.5;
+    }
+    .btn {
+        display: inline-block;
+        padding: 12px 28px;
+        background-color: #4a69bd;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+    }
+    .btn:hover { background-color: #1e3799; }
+
+    @media (max-width: 900px) {
+        .typing-line { font-size: 28px; }
+        .dashboard-grid { flex-direction: column; gap: 25px; align-items: center; }
+    }
+</style>
 </head>
 <body>
-    <header class="main-header">
-        <a class="logo" href="/home">Disha</a>
-        <nav class="main-nav">
-            <ul> <li><a href="/path">Your Path</a></li> <li><a href="path">College Directory</a></li> <li><a href="/tracker">Tracker</a></li> <li><a href="ai-bot.html">AI Bot</a></li> </ul>
-        </nav>
-    </header>
 
-    <div class="page-container">
-        <h1 class="page-title">Welcome!</h1>
-        <div class="dashboard-grid">
-            <div class="card dashboard-card">
-                <h3>Career Assessment</h3>
-                <p>Take our AI-powered test to discover your ideal career path.</p>
-                <a href="/quizz" class="btn">Take Career Assessment Test</a> </div>
-            <div class="card dashboard-card">
-                <h3>Previous Results</h3>
-                <p>Review the results and paths generated from your past tests.</p>
-                <a href="#" class="btn">View Previous Test Results</a> </div>
-        </div>
+<header class="main-header">
+    <a class="logo" href="/home">Disha</a>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="/path">Your Path</a></li>
+            <li><a href="/college">College Directory</a></li>
+            <li><a href="/tracker">Tracker</a></li>
+            <li><a href="/ai">AI Bot</a></li>
+            <% if (typeof user !== 'undefined' && user) { %>
+              <li><a href="/logout">Logout</a></li>
+            <% } else { %>
+              <li><a href="/login">Login</a></li>
+            <% } %>
+        </ul>
+    </nav>
+</header>
+
+<!-- Typing Messages -->
+<div class="typing-container">
+    <div id="line1" class="typing-line"></div>
+    <div id="line2" class="typing-line"></div>
+    <div id="line3" class="typing-line"></div>
+</div>
+
+<!-- Dashboard Cards -->
+<div class="dashboard-grid">
+    <div class="card dashboard-card">
+        <h3>Career Assessment</h3>
+        <p>Take our AI-powered test to discover your ideal career path.</p>
+        <a href="/quizz" class="btn">Take Career Assessment Test</a>
     </div>
+    <div class="card dashboard-card">
+        <h3>Previous Results</h3>
+        <p>Review the results and paths generated from your past tests.</p>
+        <a href="#" class="btn">View Previous Test Results</a>
+    </div>
+</div>
+
+<!-- Typing Animation Script -->
+<script>
+const lines = [
+    { id: "line1", text: "Welcome to Disha! 🚀" },
+    { id: "line2", text: "Your guide to growth." },
+    { id: "line3", text: "Find your right path." }
+];
+
+let lineIndex = 0;
+let charIndex = 0;
+
+function typeText() {
+    if(lineIndex < lines.length) {
+        const currentLine = document.getElementById(lines[lineIndex].id);
+        if(charIndex < lines[lineIndex].text.length) {
+            currentLine.textContent += lines[lineIndex].text.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeText, 100);
+        } else {
+            lineIndex++;
+            charIndex = 0;
+            if(lineIndex < lines.length) setTimeout(typeText, 500);
+        }
+    }
+}
+
+typeText();
+</script>
+
 </body>
 </html>
